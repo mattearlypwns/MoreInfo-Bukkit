@@ -19,26 +19,30 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.mattearlypwns.plugins.moreinfo.executors.MoreInfoPlayerExecutor;
+import com.mattearlypwns.plugins.moreinfo.executors.MoreInfoServerExecutor;
+
 public class MoreInfo extends JavaPlugin {
 
 	File info;
 	File logFile;
+
+	public static Logger logger;
+	public static Calendar cal = Calendar.getInstance();
+	public static ArrayList<String> fileContent = new ArrayList<String>();
+	public static DateFormat dateFormat = new SimpleDateFormat(
+			"MM/dd/yyyy HH:mm:ss");
 
 	private MoreInfoPlayerExecutor player;
 	private MoreInfoServerExecutor server;
 
 	private static ArrayList<String> log = new ArrayList<String>();
 
-	static Logger logger;
-	static Calendar cal = Calendar.getInstance();
-	static ArrayList<String> fileContent = new ArrayList<String>();
-	static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
 	@Override
 	public void onEnable() {
 
 		log("Starting MoreInfo", true);
-		long start = System.nanoTime();
+		long start = System.currentTimeMillis();
 
 		info = new File(getDataFolder().getAbsolutePath() + "/info.txt");
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");
@@ -47,7 +51,6 @@ public class MoreInfo extends JavaPlugin {
 		logger = getLogger();
 
 		if (!getDataFolder().exists()) {
-
 			getDataFolder().mkdirs();
 		}
 
@@ -55,7 +58,6 @@ public class MoreInfo extends JavaPlugin {
 			readInfo();
 
 		} else {
-
 			createFile(info);
 			log("Created Info", true);
 		}
@@ -64,11 +66,10 @@ public class MoreInfo extends JavaPlugin {
 
 			createFile(logFile);
 			log("Created Log", true);
-
 		}
 
-		long end = System.nanoTime();
-		log("Loaded <" + String.valueOf(end - start) + "> nanos", false);
+		long end = System.currentTimeMillis();
+		log("Loaded <" + String.valueOf(end - start) + " ms>", false);
 	}
 
 	@Override

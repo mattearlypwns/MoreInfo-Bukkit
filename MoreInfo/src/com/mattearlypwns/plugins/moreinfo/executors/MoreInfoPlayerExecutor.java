@@ -1,8 +1,11 @@
-package com.mattearlypwns.plugins.moreinfo;
+package com.mattearlypwns.plugins.moreinfo.executors;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import com.mattearlypwns.plugins.moreinfo.MoreInfo;
+import com.mattearlypwns.plugins.moreinfo.PluginUtil;
 
 public class MoreInfoPlayerExecutor {
 

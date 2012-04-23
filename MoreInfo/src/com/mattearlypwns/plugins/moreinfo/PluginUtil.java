@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 
 public class PluginUtil {
 
-	static String arrayToString(String[] args) {
+	public static String arrayToString(String[] args) {
 
 		String out = " ";
 
@@ -18,7 +18,7 @@ public class PluginUtil {
 		return out;
 	}
 
-	static boolean sendDataToUser(ArrayList<String> array, CommandSender sender) {
+	public static boolean sendDataToUser(ArrayList<String> array, CommandSender sender) {
 		if (!array.isEmpty()) {
 			sender.sendMessage(array.toArray(new String[array.size()]));
 			return true;
