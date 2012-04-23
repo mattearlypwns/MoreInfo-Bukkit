@@ -163,7 +163,8 @@ public class MoreInfo extends JavaPlugin {
 			BufferedWriter bw = new BufferedWriter(
 					new FileWriter(logFile, true));
 			for (String s : log) {
-				bw.write(s + "%n");
+				bw.write(s);
+				bw.newLine();
 			}
 			bw.close();
 			log.clear();
