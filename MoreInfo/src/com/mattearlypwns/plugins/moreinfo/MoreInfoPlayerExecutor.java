@@ -6,9 +6,9 @@ import org.bukkit.command.CommandSender;
 
 public class MoreInfoPlayerExecutor {
 
-	private IDK plugin;
+	private MoreInfo plugin;
 
-	public MoreInfoPlayerExecutor(IDK plugin) {
+	public MoreInfoPlayerExecutor(MoreInfo plugin) {
 		this.plugin = plugin;
 	}
 
@@ -20,7 +20,7 @@ public class MoreInfoPlayerExecutor {
 			switch (args.length) {
 
 			case 0:
-				return PluginUtil.sendDataToUser(IDK.fileContent, sender);
+				return PluginUtil.sendDataToUser(MoreInfo.fileContent, sender);
 
 			case 1:
 

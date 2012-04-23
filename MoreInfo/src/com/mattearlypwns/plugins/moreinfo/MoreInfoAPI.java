@@ -12,7 +12,7 @@ import org.bukkit.ChatColor;
 public class MoreInfoAPI {
 
 	private static int instances = 0;
-	private static Calendar calendar = IDK.cal;
+	private static Calendar calendar = MoreInfo.cal;
 
 	// Available to this package only (basically the only plugin)
 
@@ -27,7 +27,7 @@ public class MoreInfoAPI {
 	}
 
 	public String getDate() {
-		return IDK.dateFormat.format(calendar.getTime());
+		return MoreInfo.dateFormat.format(calendar.getTime());
 	}
 
 	/**

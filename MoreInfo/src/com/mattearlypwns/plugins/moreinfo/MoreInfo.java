@@ -20,7 +20,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-class IDK extends JavaPlugin {
+class MoreInfo extends JavaPlugin {
 
 	File info;
 	File logFile;
@@ -34,6 +34,10 @@ class IDK extends JavaPlugin {
 	static Calendar cal = Calendar.getInstance();
 	static ArrayList<String> fileContent = new ArrayList<String>();
 	static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+	public MoreInfo() {
+		onEnable();
+	}
 
 	@Override
 	public void onEnable() {
