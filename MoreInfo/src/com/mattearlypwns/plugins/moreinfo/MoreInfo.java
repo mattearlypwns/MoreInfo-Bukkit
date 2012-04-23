@@ -10,7 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.bukkit.ChatColor;
@@ -20,7 +19,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-class MoreInfo extends JavaPlugin {
+public class MoreInfo extends JavaPlugin {
 
 	File info;
 	File logFile;
@@ -34,10 +33,6 @@ class MoreInfo extends JavaPlugin {
 	static Calendar cal = Calendar.getInstance();
 	static ArrayList<String> fileContent = new ArrayList<String>();
 	static DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-	public MoreInfo() {
-		onEnable();
-	}
 
 	@Override
 	public void onEnable() {
@@ -113,7 +108,7 @@ class MoreInfo extends JavaPlugin {
 		return false;
 	}
 
-	void reload() {
+	public void reload() {
 
 		log("Reloading MoreInfo", true);
 
@@ -123,7 +118,7 @@ class MoreInfo extends JavaPlugin {
 		log("Reloaded MoreInfo", true);
 	}
 
-	static void createFile(File f) {
+	public static void createFile(File f) {
 		try {
 
 			f.createNewFile();
@@ -132,7 +127,7 @@ class MoreInfo extends JavaPlugin {
 		}
 	}
 
-	void log(String msg, boolean fileOnly) {
+	public void log(String msg, boolean fileOnly) {
 
 		if (fileOnly) {
 			log.add(getDate() + " " + msg);
@@ -144,7 +139,7 @@ class MoreInfo extends JavaPlugin {
 		}
 	}
 
-	void readInfo() {
+	public void readInfo() {
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(info));
@@ -153,7 +148,7 @@ class MoreInfo extends JavaPlugin {
 			while ((input = br.readLine()) != null) {
 				fileContent.add(input);
 			}
-			correctColorTags(fileContent, "%");
+			correctColorTags();
 			br.close();
 
 		} catch (Exception e) {
@@ -161,7 +156,7 @@ class MoreInfo extends JavaPlugin {
 		}
 	}
 
-	void unloadLog() {
+	public void unloadLog() {
 
 		try {
 
@@ -189,38 +184,36 @@ class MoreInfo extends JavaPlugin {
 	 * @author mattearlypwns
 	 * 
 	 */
-	List<String> correctColorTags(List<String> list, String tagMarker) {
+	public void correctColorTags() {
 
 		int firstLoc, secondLoc;
 		String color;
 		String line;
 
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < fileContent.size(); i++) {
 
-			line = list.get(i);
+			line = fileContent.get(i);
 
-			while (line.contains(tagMarker)) {
+			while (line.contains("%")) {
 
-				firstLoc = line.indexOf(tagMarker);
-				secondLoc = line.indexOf(tagMarker, firstLoc + 1);
+				firstLoc = line.indexOf("%");
+				secondLoc = line.indexOf("%", firstLoc + 1);
 
-				color = line.substring(firstLoc, secondLoc).replaceAll(
-						tagMarker, "");
+				color = line.substring(firstLoc, secondLoc).replaceAll("%", "");
 
-				line = line.replace(tagMarker + color + tagMarker, ChatColor
-						.valueOf(color.toUpperCase()).toString());
+				line = line.replace("%" + color + "%",
+						ChatColor.valueOf(color.toUpperCase()).toString());
 
-				list.set(i, line);
+				fileContent.set(i, line);
 
-				line = list.get(i);
+				line = fileContent.get(i);
 
 			}
 
 		}
-		return list;
 	}
 
-	static String getDate() {
+	public static String getDate() {
 		return dateFormat.format(cal.getTime());
 	}
 }

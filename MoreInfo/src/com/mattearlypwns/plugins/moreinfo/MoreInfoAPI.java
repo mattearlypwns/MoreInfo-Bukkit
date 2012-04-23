@@ -81,6 +81,7 @@ public class MoreInfoAPI {
 				secondLoc = line.indexOf(tagMarker, firstLoc + 1);
 
 				// Getting the color of the tag
+
 				color = line.substring(firstLoc, secondLoc).replaceAll(
 						tagMarker, "");
 
@@ -90,9 +91,11 @@ public class MoreInfoAPI {
 						.valueOf(color.toUpperCase()).toString());
 
 				// Saving the line
+
 				list.set(i, line);
 
 				// This gets the line to check for other tags
+
 				line = list.get(i);
 
 			}
