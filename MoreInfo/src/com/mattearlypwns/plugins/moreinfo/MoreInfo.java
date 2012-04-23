@@ -43,6 +43,8 @@ public class MoreInfo extends JavaPlugin {
 
 		log("Starting MoreInfo", true);
 		long start = System.currentTimeMillis();
+		
+		Thread t = new Thread()
 
 		info = new File(getDataFolder().getAbsolutePath() + "/info.txt");
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");

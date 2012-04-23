@@ -19,13 +19,21 @@ public class WorldInfoPlayerExecutor {
 			String[] args) {
 
 		Player player = (Player) sender;
+		String send;
+
 		switch (args.length) {
 
 		case 0:
-			sender.sendMessage("World Name: " + player.getWorld().toString());
-			/*
-			 * TODO Test this
-			 */
+			send = player.getWorld().toString();
+			sender.sendMessage("World Name: "
+					+ send.substring(send.indexOf("=") + 1).replace("}", ""));
+			sender.sendMessage("Location x: "
+					+ Math.round(player.getLocation().getX()));
+			sender.sendMessage("Location y: "
+					+ Math.round(player.getLocation().getY()));
+			sender.sendMessage("Location x: "
+					+ Math.round(player.getLocation().getZ()));
+			return true;
 		}
 
 		return false;
