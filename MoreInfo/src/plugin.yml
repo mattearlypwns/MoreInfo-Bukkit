@@ -1,0 +1,29 @@
+name: MoreInfo
+main: com.mattearlypwns.plugins.moreinfo.IDK
+version: 1.0
+author: mattearlypwns
+description: "Adds a moreinfo command to give you more info about the server."
+
+commands:
+    moreinfo:
+        aliases: mi
+        usage: /moreinfo [reload/savelog]
+        permissions:
+            moreinfo.*:
+                default: op
+                children:
+                    moreinfo.use: true
+                    moreinfo.reload: true
+                    moreinfo.savelog: true
+            
+            moreinfo.use:
+                default: true
+            
+            moreinfo.reload:
+                default: op
+
+            moreinfo.savelog:
+                default: op
+            
+
+        permission-message: Non-sufficient permissions.
