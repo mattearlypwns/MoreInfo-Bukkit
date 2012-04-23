@@ -19,8 +19,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mattearlypwns.plugins.moreinfo.executors.MoreInfoPlayerExecutor;
-import com.mattearlypwns.plugins.moreinfo.executors.MoreInfoServerExecutor;
+import com.mattearlypwns.plugins.moreinfo.executors.*;
 
 public class MoreInfo extends JavaPlugin {
 
@@ -35,6 +34,7 @@ public class MoreInfo extends JavaPlugin {
 
 	private MoreInfoPlayerExecutor player;
 	private MoreInfoServerExecutor server;
+	private WorldInfoPlayerExecutor worldinfo;
 
 	private static ArrayList<String> log = new ArrayList<String>();
 
@@ -48,6 +48,7 @@ public class MoreInfo extends JavaPlugin {
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");
 		server = new MoreInfoServerExecutor(this);
 		player = new MoreInfoPlayerExecutor(this);
+		worldinfo = new WorldInfoPlayerExecutor(this);
 		logger = getLogger();
 
 		if (!getDataFolder().exists()) {
@@ -83,28 +84,33 @@ public class MoreInfo extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 
-		if (cmd.getName().equalsIgnoreCase("moreinfo")) {
+		if (sender instanceof Player) {
 
-			if (sender instanceof Player) {
+			log("[Player Command] " + sender.getName() + " sent /"
+					+ cmd.getName() + PluginUtil.arrayToString(args), false);
 
-				log("[Player Command] " + sender.getName() + " sent /"
-						+ cmd.getName() + PluginUtil.arrayToString(args), false);
-
+			if (cmd.getName().equalsIgnoreCase("moreinfo")) {
 				return player.onCommand(sender, cmd, label, args);
 
-			} else if (sender instanceof ConsoleCommandSender) {
-
-				log("[Server Command] /" + cmd.getName()
-						+ PluginUtil.arrayToString(args), true);
-
-				return server.onCommand(sender, cmd, label, args);
-
-			} else {
-
-				log("Command recieved from an unknown place", false);
-				return true;
+			} else if (cmd.getName().equalsIgnoreCase("worldinfo")) {
+				return worldinfo.onCommand(sender, cmd, label, args);
 			}
+
+		} else if (sender instanceof ConsoleCommandSender) {
+
+			log("[Server Command] /" + cmd.getName()
+					+ PluginUtil.arrayToString(args), true);
+
+			if (cmd.getName().equalsIgnoreCase("moreinfo")) {
+				return server.onCommand(sender, cmd, label, args);
+			}
+
+		} else {
+
+			log("Command recieved from an unknown place", false);
+			return true;
 		}
+
 		return false;
 	}
 
