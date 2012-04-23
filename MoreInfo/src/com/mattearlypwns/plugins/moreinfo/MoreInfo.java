@@ -103,6 +103,10 @@ public class MoreInfo extends JavaPlugin {
 
 			if (cmd.getName().equalsIgnoreCase("moreinfo")) {
 				return server.onCommand(sender, cmd, label, args);
+
+			} else if (cmd.getName().toString().equalsIgnoreCase("worldinfo")) {
+				sender.sendMessage("Not available for the console.");
+				return true;
 			}
 
 		} else {

@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 import com.mattearlypwns.plugins.moreinfo.MoreInfo;
 
-public class WorldInfoPlayerExecutor implements CommandExecutor {
+public class WorldInfoPlayerExecutor {
 
 	private MoreInfo plugin;
 
@@ -15,7 +15,6 @@ public class WorldInfoPlayerExecutor implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) {
 

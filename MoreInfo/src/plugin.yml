@@ -15,15 +15,17 @@ commands:
                     moreinfo.use: true
                     moreinfo.reload: true
                     moreinfo.savelog: true
-            
             moreinfo.use:
                 default: true
-            
             moreinfo.reload:
                 default: op
-
             moreinfo.savelog:
                 default: op
-            
-
         permission-message: Non-sufficient permissions.
+
+    worldinfo:
+        aliases:
+        usage: /worldinfo
+        permissions:
+            worldinfo.*:
+                default: true
