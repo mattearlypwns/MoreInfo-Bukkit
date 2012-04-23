@@ -69,7 +69,6 @@ public class MoreInfo extends JavaPlugin {
 
 		long end = System.nanoTime();
 		log("Loaded <" + String.valueOf(end - start) + "> nanos", false);
-		log("Plugins using MoreInfo API: " + MoreInfoAPI.getInstances(), false);
 	}
 
 	@Override
