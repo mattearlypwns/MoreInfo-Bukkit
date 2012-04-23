@@ -1,5 +1,5 @@
 name: MoreInfo
-main: com.mattearlypwns.plugins.moreinfo.IDK
+main: com.mattearlypwns.plugins.moreinfo.MoreInfo
 version: 1.0
 author: mattearlypwns
 description: "Adds a moreinfo command to give you more info about the server."
