@@ -32,9 +32,11 @@ public class MoreInfo extends JavaPlugin {
 	public static DateFormat dateFormat = new SimpleDateFormat(
 			"MM/dd/yyyy HH:mm:ss");
 
+	private long start, end;
 	private MoreInfoPlayerExecutor player;
 	private MoreInfoServerExecutor server;
 	private WorldInfoPlayerExecutor worldinfo;
+	private Thread garbageCollector = new Thread(new TimedGarbageCollector());
 
 	private static ArrayList<String> log = new ArrayList<String>();
 
@@ -42,15 +44,13 @@ public class MoreInfo extends JavaPlugin {
 	public void onEnable() {
 
 		log("Starting MoreInfo", true);
-		long start = System.currentTimeMillis();
-		
-		Thread t = new Thread()
+		start = System.nanoTime() / 10000;
 
 		info = new File(getDataFolder().getAbsolutePath() + "/info.txt");
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");
 		server = new MoreInfoServerExecutor(this);
 		player = new MoreInfoPlayerExecutor(this);
-		worldinfo = new WorldInfoPlayerExecutor(this);
+		worldinfo = new WorldInfoPlayerExecutor();
 		logger = getLogger();
 
 		if (!getDataFolder().exists()) {
@@ -71,7 +71,9 @@ public class MoreInfo extends JavaPlugin {
 			log("Created Log", true);
 		}
 
-		long end = System.currentTimeMillis();
+		garbageCollector.start();
+
+		end = System.nanoTime() / 10000;
 		log("Loaded <" + String.valueOf(end - start) + " ms>", false);
 	}
 
