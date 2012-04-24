@@ -9,8 +9,9 @@ public class TimedGarbageCollector implements Runnable {
 
 		while (shouldRun) {
 			System.gc();
+			MoreInfo.logger.info("Ran the garbage collector...");
 			try {
-				wait(300000);
+				Thread.sleep(300000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

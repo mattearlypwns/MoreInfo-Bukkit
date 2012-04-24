@@ -33,6 +33,7 @@ public class MoreInfo extends JavaPlugin {
 			"MM/dd/yyyy HH:mm:ss");
 
 	private long start, end;
+	private static boolean reloading = false;
 	private MoreInfoPlayerExecutor player;
 	private MoreInfoServerExecutor server;
 	private WorldInfoPlayerExecutor worldinfo;
@@ -44,7 +45,7 @@ public class MoreInfo extends JavaPlugin {
 	public void onEnable() {
 
 		log("Starting MoreInfo", true);
-		start = System.nanoTime() / 10000;
+		start = System.currentTimeMillis();
 
 		info = new File(getDataFolder().getAbsolutePath() + "/info.txt");
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");
@@ -71,9 +72,11 @@ public class MoreInfo extends JavaPlugin {
 			log("Created Log", true);
 		}
 
-		garbageCollector.start();
+		if (!reloading) {
+			garbageCollector.start();
+		}
 
-		end = System.nanoTime() / 10000;
+		end = System.currentTimeMillis();
 		log("Loaded <" + String.valueOf(end - start) + " ms>", false);
 	}
 
@@ -109,7 +112,7 @@ public class MoreInfo extends JavaPlugin {
 				return server.onCommand(sender, cmd, label, args);
 
 			} else if (cmd.getName().toString().equalsIgnoreCase("worldinfo")) {
-				sender.sendMessage("Not available for the console.");
+				sender.sendMessage("Available to players only.");
 				return true;
 			}
 
@@ -123,13 +126,14 @@ public class MoreInfo extends JavaPlugin {
 	}
 
 	public void reload() {
-
+		reloading = true;
 		log("Reloading MoreInfo", true);
 
 		fileContent.clear();
 		onEnable();
 
 		log("Reloaded MoreInfo", true);
+		reloading = false;
 	}
 
 	public static void createFile(File f) {
