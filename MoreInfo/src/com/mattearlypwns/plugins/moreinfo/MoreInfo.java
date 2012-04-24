@@ -37,7 +37,8 @@ public class MoreInfo extends JavaPlugin {
 	private MoreInfoPlayerExecutor player;
 	private MoreInfoServerExecutor server;
 	private WorldInfoPlayerExecutor worldinfo;
-	private Thread garbageCollector = new Thread(new TimedGarbageCollector());
+	private Thread garbageCollector = new Thread(
+			new TimedGarbageCollector(this));
 
 	private static ArrayList<String> log = new ArrayList<String>();
 
@@ -111,7 +112,7 @@ public class MoreInfo extends JavaPlugin {
 			if (cmd.getName().equalsIgnoreCase("moreinfo")) {
 				return server.onCommand(sender, cmd, label, args);
 
-			} else if (cmd.getName().toString().equalsIgnoreCase("worldinfo")) {
+			} else if (cmd.getName().equalsIgnoreCase("worldinfo")) {
 				sender.sendMessage("Available to players only.");
 				return true;
 			}
@@ -136,7 +137,7 @@ public class MoreInfo extends JavaPlugin {
 		reloading = false;
 	}
 
-	public static void createFile(File f) {
+	public void createFile(File f) {
 		try {
 
 			f.createNewFile();

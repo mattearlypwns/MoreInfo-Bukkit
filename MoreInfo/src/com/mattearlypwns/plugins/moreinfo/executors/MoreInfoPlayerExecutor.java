@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 
 import com.mattearlypwns.plugins.moreinfo.MoreInfo;
 import com.mattearlypwns.plugins.moreinfo.PluginUtil;
+import com.mattearlypwns.plugins.moreinfo.TimedGarbageCollector;
 
 public class MoreInfoPlayerExecutor {
 
@@ -56,6 +57,12 @@ public class MoreInfoPlayerExecutor {
 						plugin.unloadLog();
 
 						return true;
+
+					} else if (args[0].equalsIgnoreCase("toggleDisposer")
+							|| args[0].equalsIgnoreCase("tDisp")) {
+
+						TimedGarbageCollector.stopGC();
+						plugin.log("Stopping Garbage Collector", false);
 
 					} else {
 						sender.sendMessage(ChatColor.RED
