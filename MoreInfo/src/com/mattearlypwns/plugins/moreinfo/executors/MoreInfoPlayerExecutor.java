@@ -57,19 +57,22 @@ public class MoreInfoPlayerExecutor {
 						plugin.unloadLog();
 
 						return true;
-
-					} else if (args[0].equalsIgnoreCase("toggleDisposer")
-							|| args[0].equalsIgnoreCase("tDisp")) {
-
-						TimedGarbageCollector.stopGC();
-						plugin.log("Stopping Garbage Collector", false);
-
-					} else {
-						sender.sendMessage(ChatColor.RED
-								+ "You do not have the right permissions");
-						return true;
 					}
 
+				} else if (args[0].equalsIgnoreCase("toggleDisposer")
+						|| args[0].equalsIgnoreCase("tDisp")
+						&& (sender.hasPermission("moreinfo.toggleDisposer") || sender
+								.hasPermission("moreinfo.*"))) {
+
+					plugin.log("Toggling Garbage Collector", false);
+					plugin.log("State of Garbage Collector: "
+							+ TimedGarbageCollector.toggleDisposer(), false);
+					return true;
+
+				} else {
+					sender.sendMessage(ChatColor.RED
+							+ "You do not have the right permissions");
+					return true;
 				}
 
 			}
@@ -78,5 +81,4 @@ public class MoreInfoPlayerExecutor {
 
 		return false;
 	}
-
 }

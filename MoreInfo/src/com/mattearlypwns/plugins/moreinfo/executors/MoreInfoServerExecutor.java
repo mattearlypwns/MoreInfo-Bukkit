@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 
 import com.mattearlypwns.plugins.moreinfo.MoreInfo;
 import com.mattearlypwns.plugins.moreinfo.PluginUtil;
+import com.mattearlypwns.plugins.moreinfo.TimedGarbageCollector;
 
 public class MoreInfoServerExecutor {
 
@@ -37,6 +38,14 @@ public class MoreInfoServerExecutor {
 
 					plugin.log("Dumped log to log file", false);
 					plugin.unloadLog();
+					return true;
+
+				} else if (args[0].equalsIgnoreCase("tdisp")
+						|| args[0].equalsIgnoreCase("toggledisposer")) {
+
+					plugin.log("Toggling Garbage Collector", false);
+					plugin.log("State of Garbage Collector: "
+							+ TimedGarbageCollector.toggleDisposer(), false);
 					return true;
 				}
 			}

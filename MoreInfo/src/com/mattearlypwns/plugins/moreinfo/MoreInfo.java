@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -48,12 +49,15 @@ public class MoreInfo extends JavaPlugin {
 		log("Starting MoreInfo", true);
 		start = System.currentTimeMillis();
 
+		fileContent.clear();
 		info = new File(getDataFolder().getAbsolutePath() + "/info.txt");
 		logFile = new File(getDataFolder().getAbsolutePath() + "/log.txt");
 		server = new MoreInfoServerExecutor(this);
 		player = new MoreInfoPlayerExecutor(this);
 		worldinfo = new WorldInfoPlayerExecutor();
 		logger = getLogger();
+
+		loadConfig();
 
 		if (!getDataFolder().exists()) {
 			getDataFolder().mkdirs();
@@ -85,6 +89,7 @@ public class MoreInfo extends JavaPlugin {
 	public void onDisable() {
 
 		log(getName() + " Shutting Down", true);
+		TimedGarbageCollector.stopGC();
 		unloadLog();
 	}
 
@@ -126,14 +131,17 @@ public class MoreInfo extends JavaPlugin {
 		return false;
 	}
 
+	public void loadConfig() {
+
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+
+	}
+
 	public void reload() {
 		reloading = true;
-		log("Reloading MoreInfo", true);
-
-		fileContent.clear();
-		onEnable();
-
-		log("Reloaded MoreInfo", true);
+		Bukkit.getPluginManager().disablePlugin(this);
+		Bukkit.getPluginManager().enablePlugin(this);
 		reloading = false;
 	}
 

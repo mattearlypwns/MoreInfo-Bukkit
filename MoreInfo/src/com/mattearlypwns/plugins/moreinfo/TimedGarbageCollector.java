@@ -2,8 +2,8 @@ package com.mattearlypwns.plugins.moreinfo;
 
 public class TimedGarbageCollector implements Runnable {
 
-	static boolean shouldRun = true;
-	MoreInfo plugin;
+	private static boolean shouldRun = true;
+	private MoreInfo plugin;
 
 	public TimedGarbageCollector(MoreInfo plugin) {
 		plugin = this.plugin;
@@ -14,7 +14,6 @@ public class TimedGarbageCollector implements Runnable {
 
 		while (shouldRun) {
 			System.gc();
-			plugin.log("Ran the garbage collector...", false);
 			try {
 				Thread.sleep(300000);
 			} catch (InterruptedException e) {
@@ -25,6 +24,14 @@ public class TimedGarbageCollector implements Runnable {
 
 	public static void stopGC() {
 		shouldRun = false;
+
+	}
+
+	public static boolean toggleDisposer() {
+
+		shouldRun = !shouldRun;
+
+		return shouldRun;
 
 	}
 
