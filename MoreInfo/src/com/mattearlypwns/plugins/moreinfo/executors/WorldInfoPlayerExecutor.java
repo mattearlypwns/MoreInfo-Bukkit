@@ -1,10 +1,13 @@
 package com.mattearlypwns.plugins.moreinfo.executors;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class WorldInfoPlayerExecutor {
+
+	ChatColor gray = ChatColor.GRAY;
 
 	public WorldInfoPlayerExecutor() {
 	}
@@ -19,18 +22,28 @@ public class WorldInfoPlayerExecutor {
 
 		case 0:
 			send = player.getWorld().toString();
-			sender.sendMessage("World Name: "
+			sender.sendMessage(gray + "World Name: "
 					+ send.substring(send.indexOf("=") + 1).replace("}", ""));
-			sender.sendMessage("Location x: "
+			sender.sendMessage(gray + "World Type: "
+					+ player.getLocation().getWorld().getWorldType().toString());
+			sender.sendMessage(gray + "Location x: "
 					+ Math.round(player.getLocation().getX()));
-			sender.sendMessage("Location y: "
+			sender.sendMessage(gray + "Location y: "
 					+ Math.round(player.getLocation().getY()));
-			sender.sendMessage("Location x: "
+			sender.sendMessage(gray + "Location x: "
 					+ Math.round(player.getLocation().getZ()));
+			sender.sendMessage(gray + "Total Experience: "
+					+ player.getTotalExperience());
+			if (player.getBedSpawnLocation() != null) {
+				sender.sendMessage("Bed Spawn Location: "
+						+ player.getBedSpawnLocation().toString());
+			} else {
+				sender.sendMessage(gray
+						+ "Bed Spawn Location: No Registered Bed Location");
+			}
 			return true;
 		}
 
 		return false;
 	}
-
 }
